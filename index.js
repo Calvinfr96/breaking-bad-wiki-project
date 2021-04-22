@@ -21,11 +21,10 @@ function createCharacterDropdown() {
     return select
 }
 
-//Fetching random characterfrom API
+//Fetching random character from API
 function getRandomCharacter() {
     return fetch(`${baseUrl}character/random`).then(res => res.json())
 }
-getRandomCharacter().then(character => console.log(character[0].name))
 
 //Create character div
 function createCharacterDiv(character) {
@@ -47,5 +46,9 @@ function createCharacterDiv(character) {
     return characterDiv
 }
 const body = document.getElementsByTagName('body')[0]
-getRandomCharacter().then(character => console.log(character))
 getRandomCharacter().then(character => body.appendChild(createCharacterDiv(character)))
+
+//Fetching specific character from API
+function getCharacter(character) {
+    return fetch(`${baseUrl}characters?name=${character}`).then(res => res.json())
+}
