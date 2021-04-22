@@ -35,6 +35,8 @@ header h1 {
 #search {
     width:250px;
 }
-#character-search {
+#search-container {
+    display: flex;
+    justify-content: space-between;
     margin: 10px;
 }
