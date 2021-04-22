@@ -34,14 +34,15 @@ function createCharacterDiv(character) {
     name.innerText = character[0].name;
     const image = document.createElement('img');
     image.src = character[0].img;
+    image.width = 400;
     const alias = document.createElement('p');
-    alias.innerText = character[0].nickname;
+    alias.innerText = `Nickname: ${character[0].nickname}`;
     const job = document.createElement('p');
-    job.innerText = character[0].occupation;
+    job.innerText = `Occupation: ${character[0].occupation}`;
     const actor = document.createElement('p');
-    actor.innerText = character[0].portrayed;
+    actor.innerText = `Played by: ${character[0].portrayed}`;
     const currentStatus = document.createElement('p')
-    currentStatus.innertext = character[0].status;
+    currentStatus.innertext = `Status: ${character[0].status}`;
     characterDiv.append(name, image, alias, job, actor, currentStatus)
     return characterDiv
 }
