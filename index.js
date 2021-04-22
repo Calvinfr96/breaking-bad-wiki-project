@@ -45,10 +45,32 @@ function createCharacterDiv(character) {
     characterDiv.append(name, image, alias, job, actor, currentStatus)
     return characterDiv
 }
-const characterContainer = document.getElementById('character-container')
-getRandomCharacter().then(character => characterContainer.appendChild(createCharacterDiv(character)))
+function appendCharacterDiv(characterDiv) {
+    const characterContainer = document.getElementById('character-container')
+    characterContainer.innerHTML = ''
+    characterContainer.appendChild(characterDiv)
+}
+getRandomCharacter().then(character => {
+    const characterDiv = createCharacterDiv(character)
+    appendCharacterDiv(characterDiv)
+})
 
-//Fetching specific character from API
+//Fetching specific character from API based on user search
 function getCharacter(character) {
     return fetch(`${baseUrl}characters?name=${character}`).then(res => res.json())
 }
+
+function searchCharacter() {
+    const searchBtn = document.getElementById('searchbtn');
+    const search = document.getElementById('search');
+    searchBtn.addEventListener('click', function (event) {
+        event.preventDefault()
+        const query = search.value.replace(' ', '+')
+        getCharacter(query).then(character => {
+            const characterDiv = createCharacterDiv(character)
+            appendCharacterDiv(characterDiv)
+        })
+    })
+}
+
+searchCharacter()
