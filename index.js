@@ -53,6 +53,8 @@ function createCharacterDiv(character) {
     const image = document.createElement('img');
     image.src = character[0].img;
     image.width = 400;
+    const appearedIn = document.createElement('p')
+    appearedIn.innerText = `Appeared in: Season(s) ${character[0].appearance}`
     const alias = document.createElement('p');
     alias.innerText = `Nickname: ${character[0].nickname}`;
     const job = document.createElement('p');
@@ -60,8 +62,8 @@ function createCharacterDiv(character) {
     const actor = document.createElement('p');
     actor.innerText = `Played by: ${character[0].portrayed}`;
     const currentStatus = document.createElement('p')
-    currentStatus.innertext = `Status: ${character[0].status}`;
-    characterDiv.append(name, image, alias, job, actor, currentStatus)
+    currentStatus.innerText = `Status: ${character[0].status}`;
+    characterDiv.append(name, image, appearedIn, alias, job, actor, currentStatus)
     return characterDiv
 }
 function appendCharacterDiv(characterDiv) {
@@ -75,6 +77,14 @@ function getCharacter(character) {
     return fetch(`${baseUrl}characters?name=${character}`).then(res => res.json())
 }
 
+//Handle fetch error and display message to user
+function fetchError(query) {
+    const errorMessage = document.createElement('p');
+    errorMessage.innerText = `Sorry, ${query} not found. Please ensure spelling is correct with proper casing (e.g Walter White)`
+    appendCharacterDiv(errorMessage)
+
+}
+
 function searchCharacter() {
     const characterSearch = document.getElementById('character-search');
     const searchBtn = document.getElementById('searchbtn');
@@ -85,7 +95,7 @@ function searchCharacter() {
         getCharacter(query).then(character => {
             const characterDiv = createCharacterDiv(character)
             appendCharacterDiv(characterDiv)
-        })
+        }).catch(error => fetchError(query))
         characterSearch.reset()
     })
 }

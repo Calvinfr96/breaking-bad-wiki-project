@@ -17,18 +17,18 @@
     [x]index.js
     [x]styles.css
 
-[]Set up HTML
+[x]Set up HTML
 
-[]Data exploration
+[x]Data exploration
     [x]Look through API and test endpoints
     [x]Look at how the returned data is structured
-    []Retrieve specific data
+    [x]Retrieve specific data
 
-[]Handle Data
-    []Create character card from user input
+[x]Handle Data
+    [x]Create character card from user input
         -make a function that does this
 
-[]Set up styling
+[x]Set up styling
 
 []Test and Polish
 
