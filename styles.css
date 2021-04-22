@@ -24,9 +24,17 @@ div {
     width: 450px;
     padding: 10px;
 }
+
 header h1 {
     font-family: Arial, Helvetica, sans-serif;
     color: gray;
     text-align: center;
     font-size: 60px;
+}
+
+#search {
+    width:250px;
+}
+#character-search {
+    margin: 10px;
 }
