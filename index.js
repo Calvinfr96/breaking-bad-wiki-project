@@ -21,16 +21,29 @@ function createCharacterDropdown(characters) {
     })
     return select
 }
+
+//Add event listener to dropdown menu
+function dropDownEvent(dropdown) {
+    dropdown.addEventListener('change', function (event) {
+        const query = event.target.value
+        getCharacter(query).then(character => {
+            const characterDiv = createCharacterDiv(character)
+            appendCharacterDiv(characterDiv)
+        })
+    })
+}
+
 //Append dropdown menu to DOM
 function appendCharacterDropdown(dropdown) {
     const searchContainer = document.getElementById('search-container');
+    dropDownEvent(dropdown)
     searchContainer.appendChild(dropdown)
 }
+
 getAllCharacters().then(characters => {
     const dropdown = createCharacterDropdown(characters)
     appendCharacterDropdown(dropdown)
 })
-
 
 //Fetch random character from API
 function getRandomCharacter() {
