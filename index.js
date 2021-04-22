@@ -45,8 +45,8 @@ function createCharacterDiv(character) {
     characterDiv.append(name, image, alias, job, actor, currentStatus)
     return characterDiv
 }
-const body = document.getElementsByTagName('body')[0]
-getRandomCharacter().then(character => body.appendChild(createCharacterDiv(character)))
+const characterContainer = document.getElementById('character-container')
+getRandomCharacter().then(character => characterContainer.appendChild(createCharacterDiv(character)))
 
 //Fetching specific character from API
 function getCharacter(character) {
