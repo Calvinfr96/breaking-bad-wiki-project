@@ -19,7 +19,7 @@ body {
     height: 100%; 
 }
 
-div {
+#character-container div {
     background-color: white;
     width: 450px;
     padding: 10px;
