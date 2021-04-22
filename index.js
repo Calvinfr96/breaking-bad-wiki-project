@@ -4,22 +4,20 @@ const baseUrl = 'https://www.breakingbadapi.com/api/';
 function getAllCharacters() {
     return fetch(`${baseUrl}characters`).then(resp => resp.json())
 }
-// getAllCharacters().then(characters => console.log(characters[0].name.replace(' ', '+')))
 
 //Using character info to create dropdown menu with list of characters: NOT WORKING
-function createCharacterDropdown() {
+function createCharacterDropdown(characters) {
     const select = document.createElement('select');
-    getAllCharacters().then(characters => {
-        characters.forEach(character => {
-            const option = document.createElement('option');
-            option.value = character.name.replaceAll(' ', '+');
-            option.innerText = character.name
-            select.appendChild(option)
-        })
-        // console.log(select)//console log from .then()
+    characters.forEach(character => {
+        const option = document.createElement('option');
+        option.value = character.name.replaceAll(' ', '+');
+        option.innerText = character.name
+        select.appendChild(option)
     })
     return select
 }
+getAllCharacters().then(characters => console.log(createCharacterDropdown(characters)))
+
 
 //Fetching random character from API
 function getRandomCharacter() {
@@ -61,6 +59,7 @@ function getCharacter(character) {
 }
 
 function searchCharacter() {
+    const characterSearch = document.getElementById('character-search');
     const searchBtn = document.getElementById('searchbtn');
     const search = document.getElementById('search');
     searchBtn.addEventListener('click', function (event) {
@@ -70,7 +69,7 @@ function searchCharacter() {
             const characterDiv = createCharacterDiv(character)
             appendCharacterDiv(characterDiv)
         })
+        characterSearch.reset()
     })
 }
-
 searchCharacter()
