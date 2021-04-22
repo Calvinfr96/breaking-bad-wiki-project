@@ -8,6 +8,11 @@ function getAllCharacters() {
 //Use character info to create dropdown menu with list of characters: NOT WORKING
 function createCharacterDropdown(characters) {
     const select = document.createElement('select');
+    const initialOption = document.createElement('option');
+    initialOption.innerText = 'Select Character';
+    initialOption.selected = true;
+    initialOption.disabled = true;
+    select.appendChild(initialOption)
     characters.forEach(character => {
         const option = document.createElement('option');
         option.value = character.name.replaceAll(' ', '+');
