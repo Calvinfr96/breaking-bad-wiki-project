@@ -45,11 +45,6 @@ getAllCharacters().then(characters => {
     appendCharacterDropdown(dropdown)
 })
 
-//Fetch random character from API
-function getRandomCharacter() {
-    return fetch(`${baseUrl}character/random`).then(res => res.json())
-}
-
 //Create character div
 function createCharacterDiv(character) {
     const characterDiv = document.createElement('div');
@@ -74,10 +69,6 @@ function appendCharacterDiv(characterDiv) {
     characterContainer.innerHTML = ''
     characterContainer.appendChild(characterDiv)
 }
-getRandomCharacter().then(character => {
-    const characterDiv = createCharacterDiv(character)
-    appendCharacterDiv(characterDiv)
-})
 
 //Fetch specific character from API based on user search
 function getCharacter(character) {
