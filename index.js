@@ -142,3 +142,5 @@ function addQuoteEvent(quoteButton, quoteDiv) {
         })
     })
 }
+
+fetch('https://www.breakingbadapi.com/api/episodes').then(res => res.json()).then(data => console.log(data))
