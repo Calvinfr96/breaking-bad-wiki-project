@@ -19,6 +19,10 @@ body {
     height: 100%; 
 }
 
+table {
+    background-color: white;
+}
+
 h1 span{
     color: rgb(23, 82, 39);
 }

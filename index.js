@@ -5,7 +5,92 @@ function getAllCharacters() {
     return fetch(`${baseUrl}characters`).then(resp => resp.json())
 }
 
-//Use character info to create dropdown menu with list of characters: NOT WORKING
+//Create Dropdown menu of seasons
+function createSeasonDropDown() {
+    const seasonsObj = {
+        'Season 1': 1,
+        'Season 2': 2,
+        'Season 3': 3,
+        'Season 4': 4,
+        'Season 5': 5
+    }
+    const select = document.createElement('select');
+    const initialOption = document.createElement('option');
+    initialOption.innerText = 'Select Season';
+    initialOption.selected = true;
+    initialOption.disabled = true;
+    select.append(initialOption)
+    for (property in seasonsObj) {
+        const option = document.createElement('option');
+        option.value = seasonsObj[property];
+        option.innerText = property;
+        select.appendChild(option)
+    }
+    return select
+}
+
+//Fetch episode data
+function getEpisodes() {
+    return fetch('https://www.breakingbadapi.com/api/episodes?series=Breaking+Bad').then(res => res.json())
+}
+
+//Add event listener to dropdown menu
+function seasonDropdownEvent(seasonDropdown) {
+    seasonDropdown.addEventListener('change', function (event) {
+        const query = event.target.value
+        getEpisodes().then(episodes => {
+            const table = createTable(episodes, query)
+            appendCharacterDiv(table)
+        })
+    })
+}
+
+//Append dropdown menu to DOM
+function appendSeasonDropdown(dropdown) {
+    const searchContainer = document.getElementById('search-container');
+    seasonDropdownEvent(dropdown)
+    searchContainer.appendChild(dropdown)
+}
+
+//Create table showing espidoes in selected season
+function createTable(episodes, query) {
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody')
+    const headRow = document.createElement('tr');
+    const episodeHeading = document.createElement('th');
+    episodeHeading.innerText = 'Episode'
+    const titleHeading = document.createElement('th');
+    titleHeading.innerText = 'Title'
+    const airDateHeading = document.createElement('th');
+    airDateHeading.innerText = 'Air Date'
+    const charactersHeading = document.createElement('th');
+    charactersHeading.innerText = 'characters'
+    headRow.append(episodeHeading, titleHeading, airDateHeading, charactersHeading)
+    thead.append(headRow)
+    table.append(thead, tbody)
+    episodes.forEach(episodeObj => {
+        if (episodeObj.season.includes(query)) {
+            const bodyRow = document.createElement('tr')
+            const episodeRow = document.createElement('td');
+            episodeRow.innerText = episodeObj.episode
+            const titleRow = document.createElement('td');
+            titleRow.innerText = episodeObj.title
+            const airDateRow = document.createElement('td');
+            airDateRow.innerText = episodeObj['air_date']
+            const charactersRow = document.createElement('td');
+            charactersRow.innerText = episodeObj.characters
+            bodyRow.append(episodeRow, titleRow, airDateRow, charactersRow)
+            tbody.append(bodyRow)
+        }
+    })
+    return table
+}
+
+const seasonDropdown = createSeasonDropDown();
+appendSeasonDropdown(seasonDropdown)
+
+//Use character info to create dropdown menu with list of characters
 function createCharacterDropdown(characters) {
     const select = document.createElement('select');
     const initialOption = document.createElement('option');
@@ -143,4 +228,4 @@ function addQuoteEvent(quoteButton, quoteDiv) {
     })
 }
 
-fetch('https://www.breakingbadapi.com/api/episodes').then(res => res.json()).then(data => console.log(data))
+fetch('https://www.breakingbadapi.com/api/episodes?series=Breaking+Bad').then(res => res.json()).then(data => console.log(data))
