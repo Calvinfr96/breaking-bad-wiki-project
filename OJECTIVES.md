@@ -6,7 +6,7 @@
 - Alternatively, users should be able to search for a character by name
 
 # Stretch
--generate random character quote
+[]generate random character quote
 
 # Wireframing
 []Think about and sketch basic site layout

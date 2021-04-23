@@ -63,7 +63,12 @@ function createCharacterDiv(character) {
     actor.innerText = `Played by: ${character[0].portrayed}`;
     const currentStatus = document.createElement('p')
     currentStatus.innerText = `Status: ${character[0].status}`;
-    characterDiv.append(name, image, appearedIn, alias, job, actor, currentStatus)
+    const quoteButton = document.createElement('button')
+    quoteButton.id = character[0].name.replaceAll(' ', '+');
+    quoteButton.innerText = `Get quotes from ${character[0].name}`
+    const quoteDiv = document.createElement('div')
+    addQuoteEvent(quoteButton, quoteDiv)
+    characterDiv.append(name, image, appearedIn, alias, job, actor, currentStatus, quoteButton, quoteDiv)
     return characterDiv
 }
 function appendCharacterDiv(characterDiv) {
@@ -80,7 +85,8 @@ function getCharacter(character) {
 //Handle fetch error and display message to user
 function fetchError(query) {
     const errorMessage = document.createElement('p');
-    errorMessage.innerText = `Sorry, ${query} not found. Please ensure spelling is correct with proper casing (e.g Walter White)`
+    errorMessage.innerText = `Sorry, ${query} not found. Please ensure spelling is correct with proper casing (e.g Walter White) 
+    or use the dropdown menu.`
     appendCharacterDiv(errorMessage)
 
 }
@@ -100,3 +106,39 @@ function searchCharacter() {
     })
 }
 searchCharacter()
+
+//Fetch character quotes
+function getCharacterQuote(author) {
+    return fetch(`${baseUrl}quote/random?author=${author}`).then(resp => resp.json())
+}
+
+//Create p tag containing random quote
+function createQuote(quoteArray) {
+    const p = document.createElement('p');
+    p.innerText = quoteArray[0].quote;
+    return p
+}
+
+//Append quote to DOM
+function appendQuote(quote, quoteDiv) {
+    quoteDiv.appendChild(quote)
+}
+
+//Add event listener to quote button
+function addQuoteEvent(quoteButton, quoteDiv) {
+    quoteButton.addEventListener('click', function () {
+        const query = quoteButton.id
+        getCharacterQuote(query).then(quoteArray => {
+            if (quoteArray.length === 1) {
+                quoteDiv.innerHTML = '';
+                const quoteP = createQuote(quoteArray)
+                appendQuote(quoteP, quoteDiv)
+            } else {
+                quoteDiv.innerHTML = '';
+                const quoteP = document.createElement('p')
+                quoteP.innerText = 'Sorry, no qoutes for this character.'
+                appendQuote(quoteP, quoteDiv)
+            }
+        })
+    })
+}
