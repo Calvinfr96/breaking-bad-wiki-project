@@ -79,7 +79,7 @@ function createTable(episodes, query) {
             const airDateRow = document.createElement('td');
             airDateRow.innerText = episodeObj['air_date']
             const charactersRow = document.createElement('td');
-            charactersRow.innerText = episodeObj.characters
+            charactersRow.innerText = episodeObj.characters.map(word => ' ' + word)
             bodyRow.append(episodeRow, titleRow, airDateRow, charactersRow)
             tbody.append(bodyRow)
         }
@@ -139,11 +139,11 @@ function createCharacterDiv(character) {
     image.src = character[0].img;
     image.width = 400;
     const appearedIn = document.createElement('p')
-    appearedIn.innerText = `Appeared in: Season(s) ${character[0].appearance}`
+    appearedIn.innerText = `Appeared in: Season(s) ${character[0].appearance.map(word => ' ' + word)}`
     const alias = document.createElement('p');
     alias.innerText = `Nickname: ${character[0].nickname}`;
     const job = document.createElement('p');
-    job.innerText = `Occupation: ${character[0].occupation}`;
+    job.innerText = `Occupation: ${character[0].occupation.map(word => ' ' + word)}`;
     const actor = document.createElement('p');
     actor.innerText = `Played by: ${character[0].portrayed}`;
     const currentStatus = document.createElement('p')
