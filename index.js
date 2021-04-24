@@ -153,7 +153,12 @@ function createCharacterDiv(character) {
     quoteButton.innerText = `Get quotes from ${character[0].name}`
     const quoteDiv = document.createElement('div')
     addQuoteEvent(quoteButton, quoteDiv)
-    characterDiv.append(name, image, appearedIn, alias, job, actor, currentStatus, quoteButton, quoteDiv)
+    const deathButton = document.createElement('button')
+    deathButton.id = character[0].name.replaceAll(' ', '+');
+    deathButton.innerText = `Death Information`
+    const deathDiv = document.createElement('div')
+    addDeathEvent(deathButton, deathDiv)
+    characterDiv.append(name, image, appearedIn, alias, job, actor, currentStatus, quoteButton, quoteDiv, deathButton, deathDiv)
     return characterDiv
 }
 function appendCharacterDiv(characterDiv) {
@@ -228,4 +233,47 @@ function addQuoteEvent(quoteButton, quoteDiv) {
     })
 }
 
-fetch('https://www.breakingbadapi.com/api/episodes?series=Breaking+Bad').then(res => res.json()).then(data => console.log(data))
+//Get character death information
+function getDeaths(query) {
+    return fetch(`${baseUrl}death?name=${query}`).then(resp => resp.json())
+}
+
+//Populate death div with death information
+function getDeathInfo(deathArray) {
+    const deathInfo = document.createElement('p')
+    deathInfo.innerText =
+        `
+    Season ${deathArray[0].season} Episode ${deathArray[0].episode}
+    Cause: ${deathArray[0].cause}
+    Last Words: ${deathArray[0]['last_words']}
+    Person Responsible: ${deathArray[0].responsible}
+    `
+    return deathInfo
+}
+
+//Append death info to DOM
+function appendDeathInfo(deathInfo, deathDiv) {
+    deathDiv.append(deathInfo)
+}
+
+//Add Event Listener to Death button
+function addDeathEvent(deathButton, deathDiv) {
+    deathButton.addEventListener('click', function () {
+        const query = deathButton.id
+        getDeaths(query).then(deathArray => {
+            if (deathArray.length === 1) {
+                deathDiv.innerHTML = '';
+                const deathInfo = getDeathInfo(deathArray)
+                appendDeathInfo(deathInfo, deathDiv)
+            } else {
+                deathDiv.innerHTML = '';
+                const deathInfo = document.createElement('p')
+                deathInfo.innerText = `Still alive`
+                appendDeathInfo(deathInfo, deathDiv)
+            }
+        })
+    })
+}
+
+fetch(`${baseUrl}deaths`).then(resp => resp.json()).then(data => console.log(data))
+fetch(`${baseUrl}death?name=Walter+White`).then(resp => resp.json()).then(data => console.log(data.length === 1))

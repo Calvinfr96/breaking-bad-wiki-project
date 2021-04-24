@@ -2,11 +2,17 @@
 
 
 # MVP
-- Users should be able to select a character from a dropdown menu and have character information displayed on the webpage
-- Alternatively, users should be able to search for a character by name
+[x]Users should be able to select a character from a dropdown menu and have character information displayed on the webpage
+[x]Alternatively, users should be able to search for a character by name
 
 # Stretch
-[]generate random character quote
+[x]Generate random character quote
+[x]Add information about a character's death
+    [x]Fetch data
+    [x]Add button to character div
+    [x]Display to user in the form of a div
+    [x]Add event listener to character div
+    [x]Within event listener, fetch data and display to user in the form of a div
 
 # Wireframing
 []Think about and sketch basic site layout
