@@ -189,7 +189,7 @@ function searchCharacter() {
     const search = document.getElementById('search');
     searchBtn.addEventListener('click', function (event) {
         event.preventDefault()
-        const query = search.value.replace(' ', '+')
+        const query = search.value.replaceAll(' ', '+')
         getCharacter(query).then(character => {
             const characterDiv = createCharacterDiv(character)
             appendCharacterDiv(characterDiv)
@@ -281,12 +281,8 @@ function addDeathEvent(deathButton, deathDiv) {
 function fetchDeathCount(query) {
     return fetch(`${baseUrl}death-count?name=${query}`).then(resp => resp.json())
 }
+
 function getDeathCount(character, headCount) {
     const query = character[0].name.replaceAll(' ', '+')
     fetchDeathCount(query).then(death => headCount.innerText = `Death Count: ${death[0].deathCount}`)
 }
-
-fetch(`${baseUrl}deaths`).then(resp => resp.json()).then(data => console.log(data))
-// fetch(`${baseUrl}death-count?name=Skyler+White`).then(resp => resp.json()).then(data => console.log(data))
-const query = 'Walter+White'
-fetchDeathCount(query).then(data => console.log(data))

@@ -7,15 +7,17 @@
 
 # Stretch
 [x]Generate random character quote
+[x]Add info about each season
 [x]Add information about a character's death
     [x]Fetch data
     [x]Add button to character div
     [x]Display to user in the form of a div
     [x]Add event listener to character div
     [x]Within event listener, fetch data and display to user in the form of a div
+[x]Add info about how many people a character has killed
 
 # Wireframing
-[]Think about and sketch basic site layout
+[x]Think about and sketch basic site layout
 
 # Roadmap
 [x]Create file structure
