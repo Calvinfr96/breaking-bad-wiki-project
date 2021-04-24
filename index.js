@@ -146,6 +146,8 @@ function createCharacterDiv(character) {
     job.innerText = `Occupation: ${character[0].occupation.map(word => ' ' + word)}`;
     const actor = document.createElement('p');
     actor.innerText = `Played by: ${character[0].portrayed}`;
+    const deathCount = document.createElement('p')
+    getDeathCount(character, deathCount)
     const currentStatus = document.createElement('p')
     currentStatus.innerText = `Status: ${character[0].status}`;
     const quoteButton = document.createElement('button')
@@ -158,7 +160,7 @@ function createCharacterDiv(character) {
     deathButton.innerText = `Death Information`
     const deathDiv = document.createElement('div')
     addDeathEvent(deathButton, deathDiv)
-    characterDiv.append(name, image, appearedIn, alias, job, actor, currentStatus, quoteButton, quoteDiv, deathButton, deathDiv)
+    characterDiv.append(name, image, appearedIn, alias, job, actor, currentStatus, deathCount, quoteButton, quoteDiv, deathButton, deathDiv)
     return characterDiv
 }
 function appendCharacterDiv(characterDiv) {
@@ -275,5 +277,16 @@ function addDeathEvent(deathButton, deathDiv) {
     })
 }
 
+//Get death count for character
+function fetchDeathCount(query) {
+    return fetch(`${baseUrl}death-count?name=${query}`).then(resp => resp.json())
+}
+function getDeathCount(character, headCount) {
+    const query = character[0].name.replaceAll(' ', '+')
+    fetchDeathCount(query).then(death => headCount.innerText = `Death Count: ${death[0].deathCount}`)
+}
+
 fetch(`${baseUrl}deaths`).then(resp => resp.json()).then(data => console.log(data))
-fetch(`${baseUrl}death?name=Walter+White`).then(resp => resp.json()).then(data => console.log(data.length === 1))
+// fetch(`${baseUrl}death-count?name=Skyler+White`).then(resp => resp.json()).then(data => console.log(data))
+const query = 'Walter+White'
+fetchDeathCount(query).then(data => console.log(data))
