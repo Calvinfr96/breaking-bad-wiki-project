@@ -28,7 +28,9 @@ td {
 }
 
 h1 span{
-    color: rgb(23, 82, 39);
+    color: white;
+    padding: 5px;
+    background-color: rgb(23, 82, 39);
 }
 
 #character-container div {
@@ -49,7 +51,7 @@ h1 span{
 
 header h1 {
     font-family: Arial, Helvetica, sans-serif;
-    color: gray;
+    color: white;
     text-align: center;
     font-size: 60px;
 }
