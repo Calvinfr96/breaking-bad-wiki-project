@@ -243,9 +243,7 @@ function getDeaths(query) {
 //Populate death div with death information
 function getDeathInfo(deathArray) {
     const deathInfo = document.createElement('p')
-    deathInfo.innerText =
-        `
-    Season ${deathArray[0].season} Episode ${deathArray[0].episode}
+    deathInfo.innerText = `Season ${deathArray[0].season} Episode ${deathArray[0].episode}
     Cause: ${deathArray[0].cause}
     Last Words: ${deathArray[0]['last_words']}
     Person Responsible: ${deathArray[0].responsible}
